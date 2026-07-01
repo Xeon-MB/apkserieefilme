@@ -15,18 +15,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-
     TextView txtFilme;
+    TextView txtUsuario;
 
     Button btnAnterior, btnProximo;
-    EditText edtNota;
-
     Button btnAdicionar;
     Button btnPerfil;
 
-    TextView txtUsuario;
+    EditText edtNota;
 
     ImageView imgFilme;
+
+    Spinner spinnerFilmes;
 
     String usuario;
 
@@ -40,12 +40,15 @@ public class MainActivity extends AppCompatActivity {
             "Stranger Things"
     };
 
+
     int[] imagens = {
             R.drawable.interestelar,
             R.drawable.breaking_bad,
             R.drawable.dark,
             R.drawable.the_office,
+
             R.drawable.matrix,
+
     };
 
     int indice = 0;
@@ -69,50 +72,31 @@ public class MainActivity extends AppCompatActivity {
         btnAnterior = findViewById(R.id.btnAnterior);
         btnProximo = findViewById(R.id.btnProximo);
 
-        imgFilme.setImageResource(imagens[indice]);
-        txtFilme.setText(filmes[indice]);
+
 
         txtUsuario.setText("Olá, " + usuario + "!");
 
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                filmes
+        );
+        spinnerFilmes.setAdapter(adapter);
+        spinnerFilmes.setSelection(indice);
 
+        atualizarFilme();
 
-
+        spinnerFilmes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                switch (position){
-
-                    case 0:
-                        imgFilme.setImageResource(R.drawable.interestelar);
-                        break;
-
-                    case 1:
-                        imgFilme.setImageResource(R.drawable.breaking_bad);
-                        break;
-
-                    case 2:
-                        imgFilme.setImageResource(R.drawable.dark);
-                        break;
-
-                    case 3:
-                        imgFilme.setImageResource(R.drawable.the_office);
-                        break;
-
-                        case 4:
-                        imgFilme.setImageResource(R.drawable.matrix);
-                        break;
-
-
-
-
-                }
-
+                indice = position;
+                atualizarFilme();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                // nada a fazer
             }
         });
 
@@ -143,44 +127,39 @@ public class MainActivity extends AppCompatActivity {
                 edtNota.setText("");
 
             } catch (NumberFormatException e) {
-
                 edtNota.setError("Digite uma nota válida.");
-
             }
 
         });
 
         btnPerfil.setOnClickListener(view -> {
-
             Intent intent = new Intent(MainActivity.this, PerfilActivity.class);
             intent.putExtra("usuario", usuario);
             startActivity(intent);
-
         });
 
         btnProximo.setOnClickListener(view -> {
-
             indice++;
-
-            if(indice >= filmes.length)
+            if (indice >= filmes.length) {
                 indice = 0;
-
-            imgFilme.setImageResource(imagens[indice]);
-            txtFilme.setText(filmes[indice]);
-
+            }
+            spinnerFilmes.setSelection(indice);
+            atualizarFilme();
         });
 
         btnAnterior.setOnClickListener(view -> {
-
             indice--;
-
-            if(indice < 0)
+            if (indice < 0) {
                 indice = filmes.length - 1;
-
-            imgFilme.setImageResource(imagens[indice]);
-            txtFilme.setText(filmes[indice]);
-
+            }
+            spinnerFilmes.setSelection(indice);
+            atualizarFilme();
         });
+    }
 
+
+    private void atualizarFilme() {
+        imgFilme.setImageResource(imagens[indice]);
+        txtFilme.setText(filmes[indice]);
     }
 }
