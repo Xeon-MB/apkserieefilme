@@ -4,22 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center_horizontal">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Meu Perfil"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"/>
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/txtPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="Usuário"/>
+        android:text="Usuário"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:layout_marginBottom="20dp"/>
+
+    <ListView
+        android:id="@+id/listAvaliacoes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

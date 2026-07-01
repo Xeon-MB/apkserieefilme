@@ -5,24 +5,17 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
-    EditText edtTitulo, edtNota;
-    Button btnAdicionar, btnExcluir, btnPerfil;
+    Spinner spnFilmes;
+    EditText edtNota;
+    Button btnAdicionar, btnPerfil;
     TextView txtUsuario;
-    ListView listViewAvaliacoes;
-
-    ArrayList<String> listaAvaliacoes;
-    ArrayAdapter<String> adapter;
-
-    int posicaoSelecionada = -1;
 
     String usuario;
 
@@ -34,64 +27,72 @@ public class MainActivity extends AppCompatActivity {
         usuario = getIntent().getStringExtra("usuario");
 
         txtUsuario = findViewById(R.id.txtUsuario);
-        edtTitulo = findViewById(R.id.edtTitulo);
+        spnFilmes = findViewById(R.id.spnFilmes);
         edtNota = findViewById(R.id.edtNota);
 
         btnAdicionar = findViewById(R.id.btnAdicionar);
-        btnExcluir = findViewById(R.id.btnExcluir);
         btnPerfil = findViewById(R.id.btnPerfil);
-
-        listViewAvaliacoes = findViewById(R.id.listViewAvaliacoes);
 
         txtUsuario.setText("Olá, " + usuario + "!");
 
-        listaAvaliacoes = new ArrayList<>();
+        String[] filmes = {
+                "Interestelar",
+                "Breaking Bad",
+                "Dark",
+                "The Office",
+                "Peaky Blinders",
+                "Clube da Luta",
+                "O Poderoso Chefão",
+                "Matrix",
+                "Vingadores: Ultimato",
+                "Stranger Things",
+                "Round 6",
+                "The Batman",
+                "Deadpool",
+                "Homem-Aranha: Sem Volta Para Casa",
+                "Invencível"
+        };
 
-        adapter = new ArrayAdapter<>(
+        ArrayAdapter<String> adapterFilmes = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_list_item_1,
-                listaAvaliacoes
+                android.R.layout.simple_spinner_item,
+                filmes
         );
 
-        listViewAvaliacoes.setAdapter(adapter);
+        adapterFilmes.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item
+        );
+
+        spnFilmes.setAdapter(adapterFilmes);
 
         btnAdicionar.setOnClickListener(view -> {
 
-            String titulo = edtTitulo.getText().toString().trim();
+            String titulo = spnFilmes.getSelectedItem().toString();
             String notaTexto = edtNota.getText().toString().trim();
 
-            if (!titulo.isEmpty() && !notaTexto.isEmpty()) {
+            if (notaTexto.isEmpty()) {
+                edtNota.setError("Digite uma nota.");
+                return;
+            }
+
+            try {
 
                 double nota = Double.parseDouble(notaTexto);
 
-                if (nota >= 0 && nota <= 5) {
-
-                    listaAvaliacoes.add("🎬 " + titulo + "\n⭐ Nota: " + nota + "/5");
-
-                    adapter.notifyDataSetChanged();
-
-                    edtTitulo.setText("");
-                    edtNota.setText("");
-
-                } else {
-                    edtNota.setError("A nota deve estar entre 0 e 5");
+                if (nota < 0 || nota > 5) {
+                    edtNota.setError("A nota deve estar entre 0 e 5.");
+                    return;
                 }
 
-            }
+                Dados.avaliacoes.add(
+                        "🎬 " + titulo +
+                                "\n⭐ Nota: " + nota + "/5"
+                );
 
-        });
-        listViewAvaliacoes.setOnItemClickListener((parent, view, position, id) -> posicaoSelecionada = position);
+                edtNota.setText("");
 
-        btnExcluir.setOnClickListener(view -> {
-
-            if (posicaoSelecionada != -1) {
-
-                listaAvaliacoes.remove(posicaoSelecionada);
-
-                adapter.notifyDataSetChanged();
-
-                posicaoSelecionada = -1;
-
+            } catch (NumberFormatException e) {
+                edtNota.setError("Digite uma nota válida.");
             }
 
         });
@@ -99,10 +100,7 @@ public class MainActivity extends AppCompatActivity {
         btnPerfil.setOnClickListener(view -> {
 
             Intent intent = new Intent(MainActivity.this, PerfilActivity.class);
-
             intent.putExtra("usuario", usuario);
-            intent.putStringArrayListExtra("avaliacoes", listaAvaliacoes);
-
             startActivity(intent);
 
         });

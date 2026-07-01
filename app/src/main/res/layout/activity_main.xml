@@ -22,17 +22,16 @@
         android:layout_marginBottom="16dp"/>
 
     <EditText
-        android:id="@+id/edtTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Filme ou Série"/>
-
-    <EditText
         android:id="@+id/edtNota"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nota (0 a 5)"
         android:inputType="numberDecimal"/>
+
+    <Spinner
+        android:id="@+id/spnFilmes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <Button
         android:id="@+id/btnAdicionar"
@@ -40,11 +39,6 @@
         android:layout_height="wrap_content"
         android:text="Adicionar Avaliação"/>
 
-    <Button
-        android:id="@+id/btnExcluir"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Excluir Avaliação"/>
 
     <Button
         android:id="@+id/btnPerfil"
@@ -52,10 +46,6 @@
         android:layout_height="wrap_content"
         android:text="Meu Perfil"/>
 
-    <ListView
-        android:id="@+id/listViewAvaliacoes"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+
 
 </LinearLayout>

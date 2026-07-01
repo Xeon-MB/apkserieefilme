@@ -1,15 +1,16 @@
 package com.example.series;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
 public class PerfilActivity extends AppCompatActivity {
 
     TextView txtPerfil;
+    ListView listAvaliacoes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,26 +18,18 @@ public class PerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_perfil);
 
         txtPerfil = findViewById(R.id.txtPerfil);
+        listAvaliacoes = findViewById(R.id.listAvaliacoes);
 
         String usuario = getIntent().getStringExtra("usuario");
-        ArrayList<String> avaliacoes = getIntent().getStringArrayListExtra("avaliacoes");
 
-        String texto = "👤 Usuário: " + usuario + "\n\n";
+        txtPerfil.setText("👤 " + usuario);
 
-        if (avaliacoes != null && !avaliacoes.isEmpty()) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                Dados.avaliacoes
+        );
 
-            texto += "📋 Minhas Avaliações:\n\n";
-
-            for (String avaliacao : avaliacoes) {
-                texto += avaliacao + "\n\n";
-            }
-
-        } else {
-
-            texto += "Você ainda não fez nenhuma avaliação.";
-
-        }
-
-        txtPerfil.setText(texto);
+        listAvaliacoes.setAdapter(adapter);
     }
 }
