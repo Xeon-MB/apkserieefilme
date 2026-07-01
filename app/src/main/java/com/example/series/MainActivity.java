@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
             "Dark",
             "The Office",
             "Matrix",
+            "Carros 2",
+            "Naruto",
+            "Tokyo Ghoul",
+            "Barbie em Vida de Sereia",
+            "Stranger Things",
+
     };
 
 
@@ -44,8 +50,12 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.breaking_bad,
             R.drawable.dark,
             R.drawable.the_office,
-
             R.drawable.matrix,
+            R.drawable.carros_2,
+            R.drawable.naruto,
+            R.drawable.tokyo_ghoul,
+            R.drawable.barbie,
+            R.drawable.stranger_things,
 
     };
 
