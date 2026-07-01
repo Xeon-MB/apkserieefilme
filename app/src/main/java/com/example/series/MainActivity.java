@@ -35,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
             "Breaking Bad",
             "Dark",
             "The Office",
-            "Peaky Blinders",
             "Matrix",
-            "Stranger Things"
     };
 
 
@@ -71,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnAnterior = findViewById(R.id.btnAnterior);
         btnProximo = findViewById(R.id.btnProximo);
+        spinnerFilmes = findViewById(R.id.spinnerFilmes);
 
 
 
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // nada a fazer
+
             }
         });
 
