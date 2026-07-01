@@ -7,6 +7,14 @@
     android:orientation="vertical"
     android:padding="24dp">
 
+    <ImageView
+        android:id="@+id/imgFilme"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/avaliasenai" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
