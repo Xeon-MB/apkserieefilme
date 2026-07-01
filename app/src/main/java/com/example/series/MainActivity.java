@@ -2,9 +2,12 @@ package com.example.series;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -12,12 +15,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Spinner spnFilmes;
+
+    TextView txtFilme;
+
+    Button btnAnterior, btnProximo;
     EditText edtNota;
-    Button btnAdicionar, btnPerfil;
+
+    Button btnAdicionar;
+    Button btnPerfil;
+
     TextView txtUsuario;
 
+    ImageView imgFilme;
+
     String usuario;
+
+    String[] filmes = {
+            "Interestelar",
+            "Breaking Bad",
+            "Dark",
+            "The Office",
+            "Peaky Blinders",
+            "Matrix",
+            "Stranger Things"
+    };
+
+    int[] imagens = {
+            R.drawable.interestelar,
+            R.drawable.breaking_bad,
+            R.drawable.dark,
+            R.drawable.the_office,
+            R.drawable.matrix,
+    };
+
+    int indice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,47 +58,67 @@ public class MainActivity extends AppCompatActivity {
         usuario = getIntent().getStringExtra("usuario");
 
         txtUsuario = findViewById(R.id.txtUsuario);
-        spnFilmes = findViewById(R.id.spnFilmes);
         edtNota = findViewById(R.id.edtNota);
 
         btnAdicionar = findViewById(R.id.btnAdicionar);
         btnPerfil = findViewById(R.id.btnPerfil);
 
+        imgFilme = findViewById(R.id.imgFilme);
+        txtFilme = findViewById(R.id.txtFilme);
+
+        btnAnterior = findViewById(R.id.btnAnterior);
+        btnProximo = findViewById(R.id.btnProximo);
+
+        imgFilme.setImageResource(imagens[indice]);
+        txtFilme.setText(filmes[indice]);
+
         txtUsuario.setText("Olá, " + usuario + "!");
 
-        String[] filmes = {
-                "Interestelar",
-                "Breaking Bad",
-                "Dark",
-                "The Office",
-                "Peaky Blinders",
-                "Clube da Luta",
-                "O Poderoso Chefão",
-                "Matrix",
-                "Vingadores: Ultimato",
-                "Stranger Things",
-                "Round 6",
-                "The Batman",
-                "Deadpool",
-                "Homem-Aranha: Sem Volta Para Casa",
-                "Invencível"
-        };
 
-        ArrayAdapter<String> adapterFilmes = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_spinner_item,
-                filmes
-        );
 
-        adapterFilmes.setDropDownViewResource(
-                android.R.layout.simple_spinner_dropdown_item
-        );
 
-        spnFilmes.setAdapter(adapterFilmes);
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                switch (position){
+
+                    case 0:
+                        imgFilme.setImageResource(R.drawable.interestelar);
+                        break;
+
+                    case 1:
+                        imgFilme.setImageResource(R.drawable.breaking_bad);
+                        break;
+
+                    case 2:
+                        imgFilme.setImageResource(R.drawable.dark);
+                        break;
+
+                    case 3:
+                        imgFilme.setImageResource(R.drawable.the_office);
+                        break;
+
+                        case 4:
+                        imgFilme.setImageResource(R.drawable.matrix);
+                        break;
+
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnAdicionar.setOnClickListener(view -> {
 
-            String titulo = spnFilmes.getSelectedItem().toString();
+            String titulo = filmes[indice];
             String notaTexto = edtNota.getText().toString().trim();
 
             if (notaTexto.isEmpty()) {
@@ -92,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 edtNota.setText("");
 
             } catch (NumberFormatException e) {
+
                 edtNota.setError("Digite uma nota válida.");
+
             }
 
         });
@@ -102,6 +155,30 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, PerfilActivity.class);
             intent.putExtra("usuario", usuario);
             startActivity(intent);
+
+        });
+
+        btnProximo.setOnClickListener(view -> {
+
+            indice++;
+
+            if(indice >= filmes.length)
+                indice = 0;
+
+            imgFilme.setImageResource(imagens[indice]);
+            txtFilme.setText(filmes[indice]);
+
+        });
+
+        btnAnterior.setOnClickListener(view -> {
+
+            indice--;
+
+            if(indice < 0)
+                indice = filmes.length - 1;
+
+            imgFilme.setImageResource(imagens[indice]);
+            txtFilme.setText(filmes[indice]);
 
         });
 

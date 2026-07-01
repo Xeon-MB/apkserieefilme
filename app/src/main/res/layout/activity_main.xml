@@ -28,24 +28,65 @@
         android:hint="Nota (0 a 5)"
         android:inputType="numberDecimal"/>
 
-    <Spinner
-        android:id="@+id/spnFilmes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/imgFilme"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/interestelar"/>
 
-    <Button
-        android:id="@+id/btnAdicionar"
+    <ImageView
+        android:id="@+id/imgFilme"
+        android:layout_width="220dp"
+        android:layout_height="320dp"
+        android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        android:src="@drawable/interestelar"/>
+
+    <TextView
+        android:id="@+id/txtFilme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Interestelar"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Adicionar Avaliação"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:id="@+id/btnAnterior"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="◀"/>
+
+        <Button
+            android:id="@+id/btnProximo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="▶"
+            android:layout_marginStart="30dp"/>
+
+        <Button
+            android:id="@+id/btnAdicionar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adicionar Avaliação"/>
 
 
-    <Button
-        android:id="@+id/btnPerfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Meu Perfil"/>
+        <Button
+            android:id="@+id/btnPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Meu Perfil"/>
+
+    </LinearLayout>
 
 
-
-</LinearLayout>
