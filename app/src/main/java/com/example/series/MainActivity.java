@@ -123,10 +123,29 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            Dados.avaliacoes.add(
-                    "🎬 " + titulo +
-                            "\n⭐ " + nota + "/5"
-            );
+            boolean atualizou = false;
+
+            for (int i = 0; i < Dados.avaliacoes.size(); i++) {
+
+                if (Dados.avaliacoes.get(i).startsWith("🎬 " + titulo)) {
+
+                    Dados.avaliacoes.set(i,
+                            "🎬 " + titulo +
+                                    "\n⭐ " + nota + "/5");
+
+                    atualizou = true;
+                    break;
+                }
+            }
+
+            if (!atualizou) {
+
+                Dados.avaliacoes.add(
+                        "🎬 " + titulo +
+                                "\n⭐ " + nota + "/5"
+                );
+
+            }
 
             ratingBar.setRating(0);
 
