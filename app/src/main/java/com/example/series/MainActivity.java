@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     atualizou = true;
                     break;
                 }
+
             }
 
             if (!atualizou) {
