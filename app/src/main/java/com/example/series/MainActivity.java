@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnAdicionar;
     Button btnPerfil;
 
-    EditText edtNota;
+    RatingBar ratingBar;
 
     ImageView imgFilme;
 
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         usuario = getIntent().getStringExtra("usuario");
 
         txtUsuario = findViewById(R.id.txtUsuario);
-        edtNota = findViewById(R.id.edtNota);
+        ratingBar = findViewById(R.id.ratingBar);
 
         btnAdicionar = findViewById(R.id.btnAdicionar);
         btnPerfil = findViewById(R.id.btnPerfil);
@@ -112,32 +114,25 @@ public class MainActivity extends AppCompatActivity {
         btnAdicionar.setOnClickListener(view -> {
 
             String titulo = filmes[indice];
-            String notaTexto = edtNota.getText().toString().trim();
+            float nota = ratingBar.getRating();
 
-            if (notaTexto.isEmpty()) {
-                edtNota.setError("Digite uma nota.");
+            if (nota == 0) {
+                Toast.makeText(this,
+                        "Escolha uma nota!",
+                        Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            try {
+            Dados.avaliacoes.add(
+                    "🎬 " + titulo +
+                            "\n⭐ " + nota + "/5"
+            );
 
-                double nota = Double.parseDouble(notaTexto);
+            ratingBar.setRating(0);
 
-                if (nota < 0 || nota > 5) {
-                    edtNota.setError("A nota deve estar entre 0 e 5.");
-                    return;
-                }
-
-                Dados.avaliacoes.add(
-                        "🎬 " + titulo +
-                                "\n⭐ Nota: " + nota + "/5"
-                );
-
-                edtNota.setText("");
-
-            } catch (NumberFormatException e) {
-                edtNota.setError("Digite uma nota válida.");
-            }
+            Toast.makeText(this,
+                    "Avaliação salva!",
+                    Toast.LENGTH_SHORT).show();
 
         });
 
