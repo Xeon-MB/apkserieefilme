@@ -116,12 +116,6 @@ public class MainActivity extends AppCompatActivity {
             String titulo = filmes[indice];
             float nota = ratingBar.getRating();
 
-            if (nota == 0) {
-                Toast.makeText(this,
-                        "Escolha uma nota!",
-                        Toast.LENGTH_SHORT).show();
-                return;
-            }
 
             boolean atualizou = false;
 
